@@ -1,0 +1,57 @@
+/* Form container */
+form {
+    background: #ffffff;
+    padding: 30px 35px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    width: 320px;
+    margin: auto;
+}
+
+/* Labels */
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #444;
+    font-weight: 600;
+}
+
+/* Inputs */
+form input[type="text"],
+form input[type="password"] {
+    width: 90%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ccd4e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+/* Input focus */
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    border-color: #6b8cff;
+    box-shadow: 0 0 5px rgba(107, 140, 255, 0.4);
+    outline: none;
+}
+
+/* Submit button */
+#submit {
+    width: 100%;
+    padding: 12px;
+    background: #6b8cff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background 0.2s ease;
+    margin-top: 20px;
+}
+
+form input[type="submit"]:hover {
+    background: #5675e6;
+}

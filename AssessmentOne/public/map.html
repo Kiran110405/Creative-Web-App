@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="EveryPage.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+
+<body>
+    <header>
+        <div class="keyboard">
+            <span class="key">F</span>
+            <span class="key">O</span>
+            <span class="key">C</span>
+            <span class="key">U</span>
+            <span class="key">S</span>
+            <span class="key">H</span>
+            <span class="key">U</span>
+            <span class="key">B</span>
+        </div>
+    </header>
+    <nav id="navbar">
+        <ul class="ul"><a class="navtext" href="/index.html">Home</a></ul>
+        <ul class="ul"><a class="navtext" href="/map.html">Map</a></ul>
+        <ul class="ul"><a class="navtext" href="AI.html">AI assistant</a></ul>
+        <ul class="ul"><a class="navtext" href="calender.html">Calender</a></ul>
+        <ul class="ul"><a class="navtext" href="notes.html">Notes</a></ul>
+        <ul class="ul"><a class="navtext" href="login.html">Login</a></ul>
+        <ul class="ul"><a class="navtext" href="register.html">Register</a></ul>
+
+    </nav>
+    <main>
+        <div id="body">
+            <h2 id="subheading">FIND PLACES IN YOUR AREA TO STUDY</h2>
+        </div>
+        <div id="map"></div>
+        <script>
+            var map = L.map('map').setView([51.505, -0.09], 13);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            navigator.geolocation.watchPosition(success, error);//when user coordinates are found the "success" function will go forward
+
+            let marker, circle;
+
+            function success(userPosition) {
+
+                const latitude = userPosition.coords.latitude;//gets the latitude of the user 
+                const longitude = userPosition.coords.longitude;//gets the longitude of the user  
+                const accuracy = userPosition.coords.accuracy;//gets the accuracy for both of the lat and lng variables
+
+
+                //create a marker 
+                marler = L.marker([latitude, longitude]).addTo(map)//passing this marker to the map
+                circle = L.circle([latitude, longitude], { radius: accuracy }).addTo(map)
+
+                map.fitBounds(circle.getBounds());
+
+            }
+
+            function error(err) {
+                if (err.code === 1) {//means that user hasnt allowed their location
+                    alert("Please allow us to see your location")
+                } else {
+                    aler("Cannot get current location")
+                }
+            }
+
+
+
+        </script>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+
+</html>

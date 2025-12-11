@@ -1,0 +1,41 @@
+.subsection-text {
+    margin: 50px;
+    text-align: center;
+}
+
+.subheading {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 50px;
+    text-align: center;
+    background-color: lightblue;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.heading {
+    background-color: lightblue;
+    padding: 5px;
+
+    text-align: center;
+    font-size: 400%;
+}
+
+.heading-two {
+    background-color: lightblue;
+    padding: 5px;
+
+    text-align: center;
+    font-size: 400%;
+}
+
+#imageOne {
+    width: 350px;
+    border: 3px solid black;
+}
+
+#section-one {
+    display: flex;
+    margin-left: 100px;
+    margin-right: 100px;
+}
