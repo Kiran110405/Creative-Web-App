@@ -1,0 +1,207 @@
+/* ===== General Reset ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f0f5;
+    min-height: 100vh;
+}
+
+/* ===== Header ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fffb91;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.add-note {
+    padding: 10px 20px;
+    background-color: #ffd966;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.1s ease;
+}
+
+.add-note:hover {
+    transform: scale(1.05);
+}
+
+/* ===== Notes Grid ===== */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 30px 40px;
+}
+
+/* ===== Individual Note Card ===== */
+.note-card {
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 150px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    transform: rotate(var(--rotation, 0deg));
+    transition: transform 0.2s ease;
+    cursor: grab;
+    word-wrap: break-word;
+}
+
+/* Random pastel colors for notes */
+.note-card:nth-child(odd) {
+    background-color: #fff7b2;
+}
+
+.note-card:nth-child(even) {
+    background-color: #ffdcc1;
+}
+
+.note-card:nth-child(3n) {
+    background-color: #c1ffd7;
+}
+
+/* Hover effect */
+.note-card:hover {
+    transform: scale(1.05) rotate(var(--rotation, 0deg));
+}
+
+/* Note Title */
+.note-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Note Content */
+.note-content {
+    font-size: 1rem;
+    white-space: pre-wrap;
+}
+
+/* Note Actions (Edit/Delete Buttons) */
+.note.actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.edit-btn,
+.delete-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    transition: color 0.2s;
+}
+
+.edit-btn:hover {
+    color: #007bff;
+}
+
+.delete-btn:hover {
+    color: #ff3b3b;
+}
+
+/* ===== Modal/Dialog ===== */
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+#noteDialog {
+    border: none;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    padding: 0;
+}
+
+.dialog-content {
+    padding: 20px 30px;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.dialog-title {
+    font-size: 1.5rem;
+}
+
+.close-button {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    resize: vertical;
+}
+
+.dialogue-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.cancel-button,
+.save-button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: #ccc;
+    color: #333;
+}
+
+.save-button {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.cancel-button:hover {
+    background-color: #b3b3b3;
+}
+
+.save-button:hover {
+    background-color: #45a049;
+}
