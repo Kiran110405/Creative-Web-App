@@ -12,26 +12,79 @@
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-
-                selectable: true,          // <-- enables clicking & selecting dates
+                selectable: true,
                 selectMirror: true,
 
-                dateClick: function (info) {
+                dateClick: async function (info) {
                     let title = prompt("Enter event title:");
-                    if (title) {
-                        calendar.addEvent({
-                            title: title,
-                            start: info.dateStr,
-                            allDay: true
-                        });
-                    }
+                    if (!title) return;
+
+                    const userId = localStorage.getItem("loggedInUser");
+
+                    const response = await fetch("/api/events", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            userId,
+                            title,
+                            date: info.dateStr
+                        })
+                    });
+
+                    const saved = await response.json();
+
+                    calendar.addEvent({
+                        id: saved.event._id,
+                        title,
+                        start: info.dateStr,
+                        allDay: true
+                    });
+                },
+
+                eventClick: async function (info) {
+                    if (!confirm(`Delete event: "${info.event.title}"?`)) return;
+
+                    await fetch(`/api/events/${info.event.id}`, {
+                        method: "DELETE"
+                    });
+
+                    info.event.remove();
                 }
             });
 
 
 
+            // dateClick: async function (info) {
+            //     let title = prompt("Enter event title:")
+            //     if (!title) return;
+
+            //     //getting the logged in user
+            //     const userId = localStorage.getItem("loggedInUser");
+
+            //     //save the event to mongoDB
+            //     const response = await fetch("/api/events", {
+            //         method: "POST",
+            //         headers: { "Content-Type": "application/json" },
+            //         body: JSON.stringify({ userId, title, date: info.dateStr })
+            //     })
+
+            //     const saved = await response.json();
+
+            //     //Also show the event on UI
+            //     calender.addEvent({
+            //         id: saved.event._id,
+            //         title: title,
+            //         start: info.dateStr,
+            //         allDay: true,
+            //     })
+            // }
+
             calendar.render();
         });
+
+
+
+
 
 
 
@@ -54,6 +107,15 @@
             <span class="key">B</span>
         </div>
     </header>
+    <nav id="navbar">
+        <ul class="ul"><a class="navtext" href="index.html">Home</a></ul>
+        <ul class="ul"><a class="navtext" href="map.html">Map</a></ul>
+        <ul class="ul"><a class="navtext" href="AI.html">AI assistant</a></ul>
+        <ul class="ul"><a class="navtext" href="calender.html">Calender</a></ul>
+        <ul class="ul"><a class="navtext" href="notes.html">Notes</a></ul>
+        <ul class="ul"><a class="navtext" href="login.html">Login</a></ul>
+        <ul class="ul"><a class="navtext" href="register.html">Register</a></ul>
+    </nav>
     <div id='calendar'></div>
 </body>
 

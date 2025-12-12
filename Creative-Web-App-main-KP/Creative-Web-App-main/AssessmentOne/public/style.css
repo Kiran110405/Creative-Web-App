@@ -3,15 +3,6 @@
     text-align: center;
 }
 
-.subheading {
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 50px;
-    text-align: center;
-    background-color: lightblue;
-    padding: 30px;
-    border-radius: 20px;
-}
 
 .heading {
     background-color: lightblue;
@@ -21,21 +12,101 @@
     font-size: 400%;
 }
 
-.heading-two {
-    background-color: lightblue;
-    padding: 5px;
-
+#introduction {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 30px;
     text-align: center;
-    font-size: 400%;
+    background-color: lightblue;
+    padding: 25px;
+    border-radius: 20px;
 }
 
-#imageOne {
-    width: 350px;
-    border: 3px solid black;
+.heading-two {
+    font-size: 50px;
 }
 
 #section-one {
     display: flex;
     margin-left: 100px;
     margin-right: 100px;
+}
+
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('https://ggayane.github.io/css-experiments/Inconsolata-VF.ttf');
+    font-weight: 275 900;
+    font-stretch: 50% 200%;
+}
+
+#workLife {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-size: 8em;
+    font-family: 'Inconsolata';
+}
+
+
+#main {
+    white-space: nowrap;
+    width: 80vw;
+    margin: auto;
+    justify-content: center;
+}
+
+.static {
+    font-size: 30px;
+    font-variation-settings: "wght" 900, "wdth" 500;
+    font-variation-settings: "wght" 275, "wdth" 200;
+    text-align: center;
+    justify-content: center;
+}
+
+.variable {
+    display: flex;
+    font-variation-settings: "wght" 275, "wdth" 50;
+    text-align: center;
+    justify-content: center;
+    animation: swapthings 3s infinite both cubic-bezier(0.17, 0.04, 0.04, 0.99);
+}
+
+.work {
+    animation: swapthings2 3s infinite both cubic-bezier(0.17, 0.04, 0.04, 0.99);
+}
+
+
+@keyframes swapthings {
+    0% {
+        font-variation-settings: "wght" 275, "wdth" 50;
+    }
+
+    50% {
+        font-variation-settings: "wght" 900, "wdth" 200;
+    }
+
+    100% {
+        font-variation-settings: "wght" 275, "wdth" 50;
+    }
+}
+
+@keyframes swapthings2 {
+    0% {
+        font-variation-settings: "wght" 900, "wdth" 200;
+    }
+
+    50% {
+        font-variation-settings: "wght" 275, "wdth" 50;
+    }
+
+    100% {
+        font-variation-settings: "wght" 900, "wdth" 200;
+    }
 }

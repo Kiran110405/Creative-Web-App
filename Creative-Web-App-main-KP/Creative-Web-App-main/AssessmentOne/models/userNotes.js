@@ -25,8 +25,8 @@ const Note = mongoose.model("Note", noteSchema);
 // }
 
 module.exports = {
-  Note
-}
+  Note,
+};
 
 /** 
 const noteData = model("studentNotes", noteSchema);
