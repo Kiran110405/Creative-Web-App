@@ -25,7 +25,7 @@ function setup() {
       y: random(-500, -50),
       targetX: xStart,
       targetY: 150,
-      speed: random(0.12, 0.12),
+      speed: random(0.01, 0.01),
       color: random(colors),
     });
 
@@ -34,7 +34,7 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  background("#F4F6FB");
 
   for (let n of notes) {
     n.y = lerp(n.y, n.targetY, n.speed);

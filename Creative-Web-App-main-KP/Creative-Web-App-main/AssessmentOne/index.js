@@ -24,6 +24,7 @@ const users = require("./models/users");
 const Notes = require("./models/userNotes");
 const Note = Notes.Note;
 const { request } = require("http");
+const Event = require("./models/eventCalender");
 
 // Page Routes
 app.get("/map", (req, res) => {
@@ -40,6 +41,13 @@ app.post("/register", (req, res) => {
   }
   res.sendFile(path.join(__dirname, "/public", "registration_failed.html"));
 });
+
+// app.post("/register", (req, res) => {
+//   if (users.addUser(req.body.username, req.body.password)) {
+//     return res.sendFile(path.join(__dirname, "/public", "login.html"));
+//   }
+//   res.sendFile(path.join(__dirname, "/public", "registration_failed.html"));
+// });
 
 app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "/public", "login.html"));
@@ -178,6 +186,47 @@ app.delete("/user/notes/:id", async (req, res) => {
     res.status(500), json({ error: err });
   }
 });
+
+//Calender routes
+
+app.post("/api/events", async (req, res) => {
+  const { userId, title, date } = req.body;
+
+  const newEvent = await Event.create({ userId, title, date });
+  res.json({ success: true, event: newEvent });
+});
+
+//gets all events for the user
+app.get("/api/events/:userId", async (req, res) => {
+  const events = await Event.find({ userId: req.params.userId });
+  res.json(events);
+});
+
+//Delete route to delete the events
+app.delete("/api/events/:eventId", async (req, res) => {
+  try {
+    await Event.findByIdAndDelete(req.params.eventId);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: error });
+  }
+});
+
+// //logout
+
+// app.get("/logout", checkLoggedIn, (request, response) => {
+//   response.sendFile(path.join(__dirname, "/public", "logout.html"));
+// });
+
+// app.post("/logout", (request, response) => {
+//   request.session.destroy();
+//   response.redirect("/");
+// });
+
+//calender APIKey
+// app.get("/api/geoapify-key", (req, res) => {
+//   res.json({ apiKey: process.env.GEOAPIFY_API_KEY });
+// });
 
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");

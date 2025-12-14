@@ -34,50 +34,127 @@
         <ul class="ul"><a class="navtext" href="notes.html">Notes</a></ul>
         <ul class="ul"><a class="navtext" href="login.html">Login</a></ul>
         <ul class="ul"><a class="navtext" href="register.html">Register</a></ul>
+        <ul class="ul"><a class="navtext" href="logout.html">Logout</a></ul>
 
     </nav>
     <main>
+        <label for="radius">Search radius (meters):</label>
+        <input type="range" id="radius" min="500" max="5000" step="250" value="1500">
+        <span id="radiusValue">1500</span>
         <div id="body">
             <h2 id="subheading">FIND PLACES IN YOUR AREA TO STUDY</h2>
         </div>
         <div id="map"></div>
-        <script>
-            var map = L.map('map').setView([51.505, -0.09], 13);
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);
+    </main>
+    <script>
+        var map = L.map('map').setView([51.505, -0.09], 13);
 
-            navigator.geolocation.watchPosition(success, error);//when user coordinates are found the "success" function will go forward
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
 
-            let marker, circle;
+        let marker, circle;
+        let placeMarkers = [];
 
-            function success(userPosition) {
+        let searchRadius = 1500;//defualt radius given to the user
 
-                const latitude = userPosition.coords.latitude;//gets the latitude of the user 
-                const longitude = userPosition.coords.longitude;//gets the longitude of the user  
-                const accuracy = userPosition.coords.accuracy;//gets the accuracy for both of the lat and lng variables
+        const radiusInput = document.getElementById("radius");
+        const radiusValue = document.getElementById("radiusValue");
 
+        radiusInput.addEventListener("input", () => {
+            searchRadius = radiusInput.value;//searches the radius of the value inputted by the user ie 700 meters
+            radiusValue.textContent = searchRadius;//updates the number of the screen to the number of radius that the user chooses 
 
-                //create a marker 
-                marler = L.marker([latitude, longitude]).addTo(map)//passing this marker to the map
-                circle = L.circle([latitude, longitude], { radius: accuracy }).addTo(map)
-
-                map.fitBounds(circle.getBounds());
-
+            //the radius circle changes as the user changes the radius they want to search
+            if (circle) {
+                circle.setRadius(searchRadius)
             }
 
-            function error(err) {
-                if (err.code === 1) {//means that user hasnt allowed their location
-                    alert("Please allow us to see your location")
-                } else {
-                    aler("Cannot get current location")
-                }
+            if (marker) {
+                fetchNearByPlaces(
+                    marker.getLatLng().lat,
+                    marker.getLatLng().lng
+                )
             }
+        })
+
+        navigator.geolocation.getCurrentPosition(success, error);
+
+        function success(userPosition) {
+            const latitude = userPosition.coords.latitude;//gets the lat of user position
+            const longitude = userPosition.coords.longitude;//gets the long of user position 
+            const accuracy = userPosition.coords.accuracy;
+
+            //the marker for the users position
+            marker = L.marker([latitude, longitude])
+                .addTo(map)
+                //little pop up to inform the user that they are here
+                .bindPopup("You are here")
+                .openPopup();
+
+            circle = L.circle([latitude, longitude], { radius: accuracy }).addTo(map);//puts a circle on the map to give an small estimate of the users position
+            map.fitBounds(circle.getBounds());//the map automatically moves and zooms into the circle of the users position
+
+            fetchNearByPlaces(latitude, longitude);
+        }
+
+        async function fetchNearByPlaces(lat, lng) {
+            // const radius = 1500;//find places within a radius of 1500 meters
+
+            placeMarkers.forEach(marker => map.removeLayer(marker));
+            placeMarkers = [];
+
+            //tells the overpass API called what data I want to retrieve from the map
+            const query = `
+      [out:json];
+      (
+        node["amenity"="library"](around:${searchRadius},${lat},${lng});
+        node["amenity"="cafe"](around:${searchRadius},${lat},${lng});
+      );
+      out;
+    `;
+            //looks for librarius and cafes in the given radius (1500) and coordinates. 
+
+            const url = "https://overpass-api.de/api/interpreter";//Overpass API
+
+            //sending Overpass question to OpenStreetView map and getting the nearby places back
+            const response = await fetch(url, {
+                method: "POST",//sending data to server to get locations 
+                body: query//specifies the places said earlier ie amenity=library
+            });
+
+            const data = await response.json();
+
+            data.elements.forEach(place => {
+                if (!place.lat || !place.lon) return;//if the place found in Overpass array doesnt have Lat OR Long, IGNORE IT
+
+                const name = place.tags.name || "No name place";//if place tagged doesnt have a name, call it "No name place"
+                const type = place.tags.amenity;//gives the value of the place ie library or cafe 
+
+                const marker = L.marker([place.lat, place.lon])
+                    .addTo(map)
+                    .bindPopup(`<b>${name}</b><br>${type}`)//binds a pop up giving the name of that place and what type of place it is 
+
+                placeMarkers.push(marker);
+
+                //     L.marker([place.lat, place.lon])
+                //         .addTo(map)//adds the marker to the map
+                //         .bindPopup(`<b>${name}</b><br>${type}`);//binds a pop up giving the name of that place and what type of place it is 
+                // });
+            });
+        }
+
+        function error(err) {
+            if (err.code === 1) {
+                alert("Please allow location access");
+            } else {
+                alert("Cannot get your location");
+            }
+        }
+    </script>
 
 
-
-        </script>
     </main>
     <footer>
 

@@ -6,7 +6,6 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js'></script>
     <link rel="stylesheet" href="EveryPage.css">
     <script>
-
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
 
@@ -16,82 +15,145 @@
                 selectMirror: true,
 
                 dateClick: async function (info) {
-                    let title = prompt("Enter event title:");
+                    let title = prompt("Enter title of deadline");
                     if (!title) return;
 
+                    // Getting the logged in user 
                     const userId = localStorage.getItem("loggedInUser");
 
+                    // Save to MongoDB
                     const response = await fetch("/api/events", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            userId,
-                            title,
-                            date: info.dateStr
-                        })
+                        body: JSON.stringify({ userId, title, date: info.dateStr })
                     });
 
                     const saved = await response.json();
 
+                    // Show event on calendar
                     calendar.addEvent({
                         id: saved.event._id,
-                        title,
+                        title: title,
                         start: info.dateStr,
                         allDay: true
                     });
                 },
 
+                // ✅ MOVED HERE (inside calendar config)
                 eventClick: async function (info) {
-                    if (!confirm(`Delete event: "${info.event.title}"?`)) return;
+                    if (!confirm(`You wish to DELETE event: "${info.event.title}"?`)) return;
 
-                    await fetch(`/api/events/${info.event.id}`, {
+                    const eventId = info.event.id;
+
+                    // Delete in backend
+                    await fetch(`/api/events/${eventId}`, {
                         method: "DELETE"
                     });
 
+                    // Remove from UI
                     info.event.remove();
                 }
             });
 
+            // Load events from MongoDB when page opens
+            const userId = localStorage.getItem("loggedInUser");
 
-
-            // dateClick: async function (info) {
-            //     let title = prompt("Enter event title:")
-            //     if (!title) return;
-
-            //     //getting the logged in user
-            //     const userId = localStorage.getItem("loggedInUser");
-
-            //     //save the event to mongoDB
-            //     const response = await fetch("/api/events", {
-            //         method: "POST",
-            //         headers: { "Content-Type": "application/json" },
-            //         body: JSON.stringify({ userId, title, date: info.dateStr })
-            //     })
-
-            //     const saved = await response.json();
-
-            //     //Also show the event on UI
-            //     calender.addEvent({
-            //         id: saved.event._id,
-            //         title: title,
-            //         start: info.dateStr,
-            //         allDay: true,
-            //     })
-            // }
+            fetch(`/api/events/${userId}`)
+                .then(res => res.json())
+                .then(events => {
+                    events.forEach(ev => {
+                        calendar.addEvent({
+                            id: ev._id,
+                            title: ev.title,
+                            start: ev.date,
+                            allDay: true
+                        });
+                    });
+                });
 
             calendar.render();
         });
 
+        // document.addEventListener('DOMContentLoaded', function () {
+        // var calendarEl = document.getElementById('calendar');
+
+        // var calendar = new FullCalendar.Calendar(calendarEl, {
+        // initialView: 'dayGridMonth',
+        // selectable: true,
+        // selectMirror: true,
+
+        // dateClick: async function (info) {
+        // let title = prompt("Enter event title:")
+        // if (!title) return;
+
+        // //getting the logged in user
+        // const userId = localStorage.getItem("loggedInUser");
+
+        // //save the event to mongoDB
+        // const response = await fetch("/api/events", {
+        // method: "POST",
+        // headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify({ userId, title, date: info.dateStr })
+        // })
+
+        // const saved = await response.json();
+
+        // //Also show the event on UI
+        // calender.addEvent({
+        // id: saved.event._id,
+        // title: title,
+        // start: info.dateStr,
+        // allDay: true,
+        // })
+        // }
 
 
+        // // dateClick: async function (info) {
+        // // let title = prompt("Enter event title:");
+        // // if (!title) return;
+
+        // // const userId = localStorage.getItem("loggedInUser");
+
+        // // const response = await fetch("/api/events", {
+        // // method: "POST",
+        // // headers: { "Content-Type": "application/json" },
+        // // body: JSON.stringify({
+        // // userId,
+        // // title,
+        // // date: info.dateStr
+        // // })
+        // // });
+
+        // // const saved = await response.json();
+
+        // // calendar.addEvent({
+        // // id: saved.event._id,
+        // // title,
+        // // start: info.dateStr,
+        // // allDay: true
+        // // });
+        // // },
 
 
+        // eventClick: async function (info) {
+        // if (!confirm(`Delete event: "${info.event.title}"?`)) return;
+
+        // await fetch(`/api/events/${info.event.id}`, {
+        // method: "DELETE"
+        // });
+
+        // info.event.remove();
+        // }
+        // });
 
 
-
-
+        // calendar.render();
+        // });
 
     </script>
+
+
+
 </head>
 
 <body>
@@ -115,6 +177,8 @@
         <ul class="ul"><a class="navtext" href="notes.html">Notes</a></ul>
         <ul class="ul"><a class="navtext" href="login.html">Login</a></ul>
         <ul class="ul"><a class="navtext" href="register.html">Register</a></ul>
+        <ul class="ul"><a class="navtext" href="logout.html">Logout</a></ul>
+
     </nav>
     <div id='calendar'></div>
 </body>
