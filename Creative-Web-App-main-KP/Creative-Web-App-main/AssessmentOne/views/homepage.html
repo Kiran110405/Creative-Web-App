@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- p5.js -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="EveryPage.css">
+</head>
+
+<body>
+  <header id="Title">
+    <div class="keyboard">
+      <span class="key">F</span>
+      <span class="key">O</span>
+      <span class="key">C</span>
+      <span class="key">U</span>
+      <span class="key">S</span>
+      <span class="key">H</span>
+      <span class="key">U</span>
+      <span class="key">B</span>
+    </div>
+  </header>
+
+  <nav id="navbar">
+    <ul class="ul"><a class="navtext" href="homepage">Home</a></ul>
+    <ul class="ul"><a class="navtext" href="map">Map</a></ul>
+    <ul class="ul"><a class="navtext" href="AI">AI assistant</a></ul>
+    <ul class="ul"><a class="navtext" href="calender">Calender</a></ul>
+    <ul class="ul"><a class="navtext" href="notes">Notes</a></ul>
+    <ul class="ul"><a class="navtext" href="profile">profile</a></ul>
+
+    <ul class="ul"><a class="navtext" href="logout">Logout</a></ul>
+
+  </nav>
+  <main>
+
+    <div id="workLife">
+      <div id="main">
+        <div class="variable">
+          <span class="stay">STAY</span>FOCUSED
+        </div>
+        <div class="static"></div>
+      </div>
+    </div>
+
+    <div id="body">
+      <div id="introduction">
+        <h1 class="heading">Welcome To The FocusHub</h1>
+        <p>This is your dedicated space to learn, plan, and grow.
+          Whether you're taking notes, managing your schedule, or exploring new study tools, FocusHub helps you stay
+          focused and productive. Everything you need to succeed is right here — let’s make studying easier together!
+
+          FocusHub brings all your essential study tools into one organised platform:
+
+          📘 Smart Note-Taking - Create, edit, and organise your study notes with ease.
+          📅 Interactive Calendar - Track deadlines, plan study sessions, and stay on top of your tasks.
+          🧭 Study Location Map - Discover quiet study spots near you so you can always find the perfect place to focus.
+          🤖 Personal AI Chatbot - Get instant help, study support, explanations, and motivation whenever you need it.
+
+          With FocusHub, everything you need to stay productive is in one place—simple, powerful, and made just for
+          students.</p>
+      </div>
+      <div id="noteSection">
+        <div id="noteAnimation" style="margin-top: 0px; text-align: center;"> </div>
+        <div id="note-text">
+          <p>The best way to study? TAKE NOTES.
+            Right here in this web app, students can write, organize, and save their notes all in one place. Whether
+            you're reviewing lessons, preparing for exams, or jotting down important ideas, your notes are always stored
+            securely and ready whenever you need them. Stay focused, stay organized, and study smarter by keeping all
+            your
+            notes in the app.</p>
+          <br>
+          <br>
+          <a id="note-button" href="notes.html" <button class="btn notes">
+            <span>TAKE NOTES</span>
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  </main>
+
+  <footer></footer>
+
+  <!-- <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const heading = document.querySelector(".heading-two");
+      const words = heading.textContent.split(" ");
+      heading.textContent = "";
+
+      words.forEach(word => {
+        const span = document.createElement("span");
+        span.textContent = word + " ";
+        span.style.display = "inline-block";
+        heading.appendChild(span);
+      });
+
+      gsap.from(".heading-two span", {
+        y: -100,
+        opacity: 0,
+        rotationX: -90,
+        duration: 0.8,
+        ease: "bounce.out",
+        stagger: 0.2
+      });
+    });
+  </script> -->
+
+  <!-- Load p5 animation code -->
+  <script src="sketch.js"></script>
+
+</body>
+
+</html>

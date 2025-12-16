@@ -4,7 +4,13 @@ const path = require("path");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const fetch = require("node-fetch"); // needed for OpenAI request
+const sessions = require("express-session");
+const cookieParser = require("cookie-parser");
 //required variables
+
+//for session
+const tenMinutes = 10 * 60 * 1000;
+const oneHour = 1 * 60 * 60 * 1000;
 
 const mongoDBPassword = process.env.mongoDBPassword;
 const mongoDBUsername = process.env.mongoDBUsername;
@@ -26,20 +32,74 @@ const Note = Notes.Note;
 const { request } = require("http");
 const Event = require("./models/eventCalender");
 
+//cookies
+app.use(
+  sessions({
+    secret: "This is my secret",
+    cookie: { maxAge: tenMinutes },
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+function checkLoggedIn(request, response, nextAction) {
+  if (request.session) {
+    if (request.session.username) {
+      nextAction();
+    } else {
+      request.session.destroy();
+      response.sendFile(path.join(__dirname, "/views", "notloggedin.html"));
+    }
+  } else {
+    request.session.destroy();
+    request.sendFile(path.join(__dirname, "/views", "notloggedin.html"));
+  }
+}
+
 // Page Routes
-app.get("/map", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public", "map.html"));
+
+app.get("/homepage", checkLoggedIn, (request, response) => {
+  response.sendFile(path.join(__dirname, "/views", "homepage.html"));
+});
+
+app.get("/map", checkLoggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, "/views", "map.html"));
+});
+
+app.get("/notes", checkLoggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, "/views", "notes.html"));
+});
+
+app.get("/AI", checkLoggedIn, (request, response) => {
+  response.sendFile(path.join(__dirname, "views", "AI.html"));
+});
+
+app.get("/calender", checkLoggedIn, (request, response) => {
+  response.sendFile(path.join(__dirname, "views", "calender.html"));
 });
 
 app.get("/register", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public", "register.html"));
+  res.sendFile(path.join(__dirname, "/views", "register.html"));
 });
 
 app.post("/register", (req, res) => {
   if (users.addUser(req.body.username, req.body.password)) {
-    return res.sendFile(path.join(__dirname, "/public", "login.html"));
+    return res.sendFile(path.join(__dirname, "/views", "login.html"));
   }
-  res.sendFile(path.join(__dirname, "/public", "registration_failed.html"));
+  res.sendFile(path.join(__dirname, "/views", "registration_failed.html"));
+});
+
+app.get("/profile", checkLoggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, "/views", "profile.html"));
+});
+
+app.get("/logout", checkLoggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, "/views", "logout.html"));
+});
+
+app.post("/logout", (request, response) => {
+  request.session.destroy();
+  response.redirect("/");
 });
 
 // app.post("/register", (req, res) => {
@@ -50,7 +110,7 @@ app.post("/register", (req, res) => {
 // });
 
 app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public", "login.html"));
+  res.sendFile(path.join(__dirname, "/views", "login.html"));
 });
 
 /** 
@@ -64,19 +124,37 @@ app.post("/login", async (request, response) => {
 });
 */
 
+// app.post("/login", async (req, res) => {
+//   const user = await users.checkUser(req.body.username, req.body.password);
+
+//   if (user) {
+//     res.json({ success: true, userId: user._id });
+//     // res.redirect("notes.html");
+//   } else {
+//     res.json({ success: false });
+//   }
+
+//   if (await userModel.checkUser(request.body.username, request.body.password)) {
+//     request.session.username = request.body.username;
+//     response.sendFile(path.join(__dirname, "/views", "homepage.html"));
+//   } else {
+//     response.sendFile(path.join(__dirname, "/views", "notloggedin.html"));
+//   }
+// });
+
 app.post("/login", async (req, res) => {
   const user = await users.checkUser(req.body.username, req.body.password);
 
   if (user) {
-    res.json({ success: true, userId: user._id });
-    // res.redirect("notes.html");
-  } else {
-    res.json({ success: false });
-  }
-});
+    //store session (needed for checkLoggedIn)
+    req.session.username = req.body.username;
+    req.session.userId = user._id;
 
-app.get("/notes", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public", "notes.html"));
+    // redirect to homepage
+    return res.redirect("/homepage");
+  } else {
+    return res.sendFile(path.join(__dirname, "/views", "notloggedin.html"));
+  }
 });
 
 //sends messages to openAIs API and gets responses
@@ -186,19 +264,23 @@ app.delete("/user/notes/:id", async (req, res) => {
     res.status(500), json({ error: err });
   }
 });
-
 //Calender routes
 
 app.post("/api/events", async (req, res) => {
-  const { userId, title, date } = req.body;
+  const { userId, title, detail, date } = req.body;
 
-  const newEvent = await Event.create({ userId, title, date });
+  const newEvent = await Event.create({
+    userId: req.session.userId,
+    title,
+    detail,
+    date,
+  });
   res.json({ success: true, event: newEvent });
 });
 
 //gets all events for the user
 app.get("/api/events/:userId", async (req, res) => {
-  const events = await Event.find({ userId: req.params.userId });
+  const events = await Event.find({ userId: req.session.userId });
   res.json(events);
 });
 
