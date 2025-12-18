@@ -150,8 +150,14 @@ app.post("/login", async (req, res) => {
     req.session.username = req.body.username;
     req.session.userId = user._id;
 
+    return res.json({
+      success: true,
+      userId: user._id,
+      username: user.username,
+    });
+
     // redirect to homepage
-    return res.redirect("/homepage");
+    //return res.redirect("/homepage");
   } else {
     return res.sendFile(path.join(__dirname, "/views", "notloggedin.html"));
   }
@@ -212,6 +218,7 @@ app.post("/user/notes", async (req, res) => {
     // let note=await Notes.addNote(req.body.title, req.body.content, req.body.userId)
     const note = await Note.create({
       userId: req.body.userId,
+      username: req.body.username,
       title: req.body.title,
       content: req.body.content,
     });

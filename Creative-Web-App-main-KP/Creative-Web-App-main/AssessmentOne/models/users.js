@@ -21,9 +21,11 @@ async function addUser(username, password) {
 // Check login using MongoDB
 async function checkUser(username, password) {
   const foundUser = await userData.findOne({ username }).exec();
-  if (!foundUser) return false;
+  if (!foundUser) return null;
 
-  return foundUser.password === password;
+  if (foundUser.password !== password) return null;
+
+  return foundUser; //returns the user
 }
 
 //this function checks if the user is stored within mongoDB
