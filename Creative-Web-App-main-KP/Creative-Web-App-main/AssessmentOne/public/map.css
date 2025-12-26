@@ -9,3 +9,31 @@
     margin-bottom: 20px;
     border: 8px solid black
 }
+
+#text {
+    text-align: center;
+    margin: 50px;
+    padding: 20px;
+    background-color: lightblue;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#radius-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 100px;
+    gap: 20px;
+    font-size: 30px;
+    background-color: lightblue;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 8px 8px black;
+}
+
+h2 {
+    font-size: 50px;
+    text-align: center;
+}
