@@ -3,45 +3,55 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="EveryPage.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <script src="getStarted.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+
     <title>Document</title>
 </head>
 
 <body>
-    <!DOCTYPE html>
-    <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="EveryPage.css">
-        <title>Document</title>
-    </head>
 
-    <body>
-        <header>
-            <div class="keyboard">
-                <span class="key">F</span>
-                <span class="key">O</span>
-                <span class="key">C</span>
-                <span class="key">U</span>
-                <span class="key">S</span>
-                <span class="key">H</span>
-                <span class="key">U</span>
-                <span class="key">B</span>
+    <header>
+        <div class="keyboard intro-title">
+            <span class="key">F</span>
+            <span class="key">O</span>
+            <span class="key">C</span>
+            <span class="key">U</span>
+            <span class="key">S</span>
+            <span class="key">H</span>
+            <span class="key">U</span>
+            <span class="key">B</span>
+        </div>
+    </header>
+
+    <div id="page-content">
+        <!-- <h2>To get started:</h2> -->
+        <div id="p5-typing"></div>
+        <p>Please <em>REGISTER</em> or <em>LOGIN</em>!</p>
+        <div id="main-container">
+            <div id="Login">
+                <ul class="bubble-btn rotate-left"><a id="login-button"" href=" login">Login</a></ul>
             </div>
-        </header>
-        <nav id="navbar">
+            <div id="register">
+                <ul class="bubble-btn rotate-right"><a id="register-button" href="register">Register</a></ul>
+            </div>
+        </div>
+    </div>
 
-            <ul class="ul"><a class="navtext" href="login">Login</a></ul>
-            <ul class="ul"><a class="navtext" href="register">Register</a></ul>
 
-        </nav>
-        <h2>To get started:</h2>
-        <p>Please register or login</p>
-
-    </html>
+    <script>//chatGPT help
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.body.classList.add("loaded");
+            }, 500); // slight delay for smoother effect
+        });
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,159 @@
+.subsection-text {
+    margin: 50px;
+    text-align: center;
+}
+
+
+#introduction {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 30px;
+    text-align: center;
+    background-color: #4F46E5;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.5);
+    color: #F4F6FB;
+    font-size: 1.2rem;
+}
+
+.heading {
+    font-size: 50px;
+    color: #F4F6FB;
+
+}
+
+#section-one {
+    display: flex;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('https://ggayane.github.io/css-experiments/Inconsolata-VF.ttf');
+    font-weight: 275 900;
+    font-stretch: 50% 200%;
+}
+
+#workLife {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1E1E2F;
+    color: #F4F6FB;
+    font-size: 8em;
+    font-family: 'Inconsolata';
+}
+
+
+#main {
+    white-space: nowrap;
+    width: 80vw;
+    margin: auto;
+    justify-content: center;
+}
+
+
+
+.variable {
+    display: flex;
+    font-variation-settings: "wght" 275, "wdth" 50;
+    text-align: center;
+    justify-content: center;
+    animation: swapthings 3s infinite both cubic-bezier(0.17, 0.04, 0.04, 0.99);
+    color: lightblue;
+}
+
+.stay {
+    animation: swapthings2 3s infinite both cubic-bezier(0.17, 0.04, 0.04, 0.99);
+    color: #4F46E5;
+}
+
+
+@keyframes swapthings {
+    0% {
+        font-variation-settings: "wght" 275, "wdth" 50;
+    }
+
+    50% {
+        font-variation-settings: "wght" 900, "wdth" 200;
+    }
+
+    100% {
+        font-variation-settings: "wght" 275, "wdth" 50;
+    }
+}
+
+@keyframes swapthings2 {
+    0% {
+        font-variation-settings: "wght" 900, "wdth" 200;
+    }
+
+    50% {
+        font-variation-settings: "wght" 275, "wdth" 50;
+    }
+
+    100% {
+        font-variation-settings: "wght" 900, "wdth" 200;
+    }
+}
+
+#noteSection {
+    margin-top: 50px;
+    text-align: center;
+    margin-left: 100px;
+    margin-right: 100px;
+    font-size: 1.2rem;
+    background-color: #F4F6FB;
+    color: #1F2937;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.5);
+
+}
+
+.btn {
+    position: relative;
+    padding: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: black;
+    background: none;
+    border: 2px solid lightblue;
+    border-radius: 8px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    width: 300px;
+}
+
+.notes {
+    background: linear-gradient(lightblue 0 0) no-repeat calc(200% - var(--p, 0%)) 100% / 200% var(--p, 0.2em);
+    transition: 0.3s var(--t, 0s),
+        background-position 0.3s calc(0.3s - var(--t, 0s));
+}
+
+.notes:hover {
+    --p: 100%;
+    --t: 0.3s;
+    color: #fff;
+}
+
+#note-button {
+    justify-content: center;
+    text-align: center;
+    margin-top: 200px;
+    margin-bottom: 50px;
+}
+
+#note-text {
+    margin-bottom: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
