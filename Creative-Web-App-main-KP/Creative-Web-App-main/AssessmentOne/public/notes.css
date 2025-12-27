@@ -1,207 +1,330 @@
-/* ===== General Reset ===== */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+/* ===============================
+   NOTES PAGE – FOCUSHUB THEME
+   =============================== */
 
 body {
-    background-color: #f0f0f5;
-    min-height: 100vh;
+    background: linear-gradient(135deg, #F4F6FB, #ECE9FF);
+    font-family: "Inter", system-ui, sans-serif;
+    margin: 0;
 }
 
-/* ===== Header ===== */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    background-color: #fffb91;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+/* Page title */
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin: 40px 0 20px;
+    color: #2E2A5E;
+    letter-spacing: 1px;
 }
 
-header h1 {
-    font-size: 2rem;
-    color: #333;
-}
-
+/* Add note button */
 .add-note {
-    padding: 10px 20px;
-    background-color: #ffd966;
+    display: block;
+    margin: 0 auto 40px;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #6A7BFF, #8F6DFF);
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 14px;
     cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.1s ease;
+    box-shadow: 0 12px 30px rgba(106, 123, 255, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .add-note:hover {
-    transform: scale(1.05);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(106, 123, 255, 0.45);
 }
 
-/* ===== Notes Grid ===== */
-.notes-grid {
+/* ===============================
+   NOTES GRID (FULL WIDTH)
+   =============================== */
+
+main#notesContainer {
+    width: 100%;
+    padding: 40px 60px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 30px 40px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+    box-sizing: border-box;
 }
 
-/* ===== Individual Note Card ===== */
-.note-card {
-    position: relative;
-    padding: 20px;
-    border-radius: 10px;
-    min-height: 150px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-    transform: rotate(var(--rotation, 0deg));
-    transition: transform 0.2s ease;
-    cursor: grab;
-    word-wrap: break-word;
-}
-
-/* Random pastel colors for notes */
-.note-card:nth-child(odd) {
-    background-color: #fff7b2;
-}
-
-.note-card:nth-child(even) {
-    background-color: #ffdcc1;
-}
-
-.note-card:nth-child(3n) {
-    background-color: #c1ffd7;
-}
-
-/* Hover effect */
-.note-card:hover {
-    transform: scale(1.05) rotate(var(--rotation, 0deg));
-}
-
-/* Note Title */
-.note-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* Note Content */
-.note-content {
-    font-size: 1rem;
-    white-space: pre-wrap;
-}
-
-/* Note Actions (Edit/Delete Buttons) */
-.note.actions {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+/* Individual note card */
+.note {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 15px 40px rgba(60, 60, 120, 0.15);
     display: flex;
-    gap: 5px;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.edit-btn,
-.delete-btn {
-    background: transparent;
-    border: none;
-    cursor: pointer;
+.note::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent, rgba(106, 123, 255, 0.08));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.note:hover::before {
+    opacity: 1;
+}
+
+.note:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 60px rgba(60, 60, 120, 0.25);
+}
+
+/* Note title */
+.note h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #3B3B7A;
+}
+
+/* Note content */
+.note p {
+    font-size: 15px;
+    line-height: 1.6;
     color: #555;
-    transition: color 0.2s;
+    flex-grow: 1;
 }
 
-.edit-btn:hover {
-    color: #007bff;
-}
+/* ===============================
+   NOTE DIALOG (MODAL)
+   =============================== */
 
-.delete-btn:hover {
-    color: #ff3b3b;
-}
-
-/* ===== Modal/Dialog ===== */
-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.4);
-}
-
-#noteDialog {
+dialog#noteDialog {
     border: none;
-    border-radius: 10px;
-    width: 400px;
-    max-width: 90%;
+    border-radius: 20px;
     padding: 0;
+    width: 90%;
+    max-width: 520px;
+    background: white;
+    box-shadow: 0 30px 80px rgba(40, 40, 80, 0.35);
 }
 
+dialog::backdrop {
+    background: rgba(30, 30, 60, 0.6);
+    backdrop-filter: blur(6px);
+}
+
+/* Dialog content */
 .dialog-content {
-    padding: 20px 30px;
+    padding: 30px;
 }
 
+/* Header */
 .dialog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 .dialog-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    color: #2E2A5E;
 }
 
+/* Close button */
 .close-button {
-    background: transparent;
+    background: none;
     border: none;
-    font-size: 1.2rem;
+    font-size: 22px;
     cursor: pointer;
+    color: #888;
 }
 
+.close-button:hover {
+    color: #333;
+}
+
+/* Form groups */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #4A4A7A;
 }
 
 .form-input,
 .form-textarea {
     width: 100%;
-    padding: 8px 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #DDD;
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-textarea {
+    min-height: 140px;
     resize: vertical;
 }
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #6A7BFF;
+    box-shadow: 0 0 0 3px rgba(106, 123, 255, 0.2);
+}
+
+/* ===============================
+   DIALOG ACTION BUTTONS
+   =============================== */
 
 .dialogue-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
-}
-
-.cancel-button,
-.save-button {
-    padding: 8px 15px;
-    border-radius: 5px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
+    gap: 14px;
+    margin-top: 25px;
 }
 
 .cancel-button {
-    background-color: #ccc;
+    background: #EAEAF5;
     color: #333;
-}
-
-.save-button {
-    background-color: #4caf50;
-    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
 }
 
 .cancel-button:hover {
-    background-color: #b3b3b3;
+    background: #DDDDF0;
+}
+
+.save-button {
+    background: linear-gradient(135deg, #6A7BFF, #8F6DFF);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(106, 123, 255, 0.35);
 }
 
 .save-button:hover {
-    background-color: #45a049;
+    box-shadow: 0 12px 30px rgba(106, 123, 255, 0.5);
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+
+@media (max-width: 768px) {
+    main#notesContainer {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 2.4rem;
+    }
+}
+
+/* Notes grid layout */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 28px;
+    padding: 40px;
+}
+
+/* Individual note card */
+.notes-grid>div {
+    background: #fff9a6;
+    /* default sticky note yellow */
+    padding: 20px 18px;
+    min-height: 220px;
+    border-radius: 6px 6px 12px 6px;
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.15),
+        inset 0 -10px 20px rgba(0, 0, 0, 0.05);
+    font-family: "Comic Neue", "Segoe UI", sans-serif;
+    position: relative;
+    transform: rotate(var(--rotation));
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover effect */
+.notes-grid>div:hover {
+    transform: scale(1.03) rotate(var(--rotation));
+    box-shadow:
+        0 16px 28px rgba(0, 0, 0, 0.2),
+        inset 0 -10px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Sticky note fold (corner peel) */
+.notes-grid>div::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.4);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+/* Title */
+.notes-grid h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #2a2a40;
+}
+
+/* Content */
+.notes-grid p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+/* 🎨 Alternate sticky note colors */
+.notes-grid>div:nth-child(4n + 1) {
+    background: #fff9a6;
+    /* yellow */
+}
+
+.notes-grid>div:nth-child(4n + 2) {
+    background: #c7f0ff;
+    /* light blue */
+}
+
+.notes-grid>div:nth-child(4n + 3) {
+    background: #e6d9ff;
+    /* light purple */
+}
+
+.notes-grid>div:nth-child(4n + 4) {
+    background: #d9ffe4;
+    /* mint */
+}
+
+/* 🎯 Random-looking rotation */
+.notes-grid>div:nth-child(odd) {
+    --rotation: -2deg;
+}
+
+.notes-grid>div:nth-child(even) {
+    --rotation: 2deg;
+}
+
+.notes-grid>div:nth-child(3n) {
+    --rotation: 1deg;
 }

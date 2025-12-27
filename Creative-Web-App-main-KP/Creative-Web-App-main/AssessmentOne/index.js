@@ -89,9 +89,9 @@ app.post("/register", (req, res) => {
   res.sendFile(path.join(__dirname, "/views", "registration_failed.html"));
 });
 
-app.get("/profile", checkLoggedIn, (req, res) => {
-  res.sendFile(path.join(__dirname, "/views", "profile.html"));
-});
+// app.get("/profile", checkLoggedIn, (req, res) => {
+//   res.sendFile(path.join(__dirname, "/views", "profile.html"));
+// });
 
 app.get("/logout", checkLoggedIn, (req, res) => {
   res.sendFile(path.join(__dirname, "/views", "logout.html"));
@@ -155,9 +155,6 @@ app.post("/login", async (req, res) => {
       userId: user._id,
       username: user.username,
     });
-
-    // redirect to homepage
-    //return res.redirect("/homepage");
   } else {
     return res.sendFile(path.join(__dirname, "/views", "notloggedin.html"));
   }
@@ -179,7 +176,11 @@ app.post("/api/chat", async (req, res) => {
       body: JSON.stringify({
         model: "gpt-4o-mini",
         messages: [
-          { role: "system", content: "You are a helpful study assistant." }, //how the AI should act
+          {
+            role: "system",
+            content:
+              "You are a helpful study assistant. Not to engage in any inapropriate convsersations and can only do so if the user specifies that it is for educational purposes only and make sure before you engage in such conversations that you ask the user for an age of 18 or over",
+          }, //how the AI should act
           { role: "user", content: userMessage },
         ],
         max_tokens: 120, //maximum response length
@@ -205,7 +206,7 @@ app.get("/user/notes/:userId", async (req, res) => {
   try {
     const notes = await Note.find({ userId: req.params.userId }).sort({
       createdAt: 1,
-    }); //finding the notes that belong to the user that is logged in and displays them in order from oldest to newest
+    }); //finding the notes that belong to the user that is logged in and displays them in order from newest to oldest
     res.json(notes); //sends the notes back to the user in a json format
   } catch (err) {
     res.status(500).json({ error: err });

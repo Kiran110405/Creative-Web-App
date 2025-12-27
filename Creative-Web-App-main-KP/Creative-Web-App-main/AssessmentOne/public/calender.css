@@ -1,26 +1,119 @@
-body {
-    background-color: white;
+/* ===== MAIN LAYOUT ===== */
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px 40px;
+    background: linear-gradient(135deg, #f4f6fb, #eef1ff);
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(80, 90, 180, 0.15);
+    animation: fadeInUp 0.8s ease forwards;
 }
 
-
-header {
+/* ===== PAGE TITLE ===== */
+main h2 {
     text-align: center;
-    background-color: lightblue;
-    padding: 30px;
+    font-size: 46px;
+    letter-spacing: 3px;
+    color: #4a4fe0;
+    margin-bottom: 25px;
+    font-weight: 800;
 }
 
-#navbar {
-    display: flex;
-    justify-content: center;
+/* ===== INTRO TEXT CARD ===== */
+#text {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 16px;
+    margin-bottom: 35px;
+    border-left: 6px solid #6b6fe8;
+    box-shadow: 0 10px 25px rgba(90, 100, 200, 0.15);
 }
 
-.ul {
-    border: 1px solid #555555;
+#text p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #4a4a6a;
+}
+
+/* ===== CALENDAR CONTAINER ===== */
+#calendar {
+    background: white;
     padding: 20px;
-    background-color: aliceblue;
+    border-radius: 20px;
+    box-shadow: 0 14px 35px rgba(80, 90, 180, 0.2);
+    border-top: 6px solid #4a90e2;
+    min-height: 650px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.navtext {
-    text-decoration: none;
-    padding: 10px;
+/* Hover lift effect for depth */
+#calendar:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(80, 90, 180, 0.28);
+}
+
+/* ===== FULLCALENDAR ENHANCEMENTS ===== */
+.fc {
+    font-family: "Segoe UI", sans-serif;
+}
+
+.fc-toolbar-title {
+    color: #4a4fe0;
+    font-weight: 700;
+}
+
+.fc-button {
+    background: linear-gradient(135deg, #6b6fe8, #4a90e2);
+    border: none;
+    border-radius: 10px;
+    padding: 6px 14px;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.fc-button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #4a90e2, #6b6fe8);
+}
+
+.fc-daygrid-day-number {
+    font-weight: 600;
+    color: #4a4a6a;
+}
+
+.fc-event {
+    background: linear-gradient(135deg, #6bcbca, #4a90e2);
+    border: none;
+    border-radius: 8px;
+    padding: 4px 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ===== SUBTLE ANIMATION ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    main {
+        padding: 20px;
+    }
+
+    main h2 {
+        font-size: 36px;
+    }
+
+    #calendar {
+        min-height: 500px;
+    }
 }
