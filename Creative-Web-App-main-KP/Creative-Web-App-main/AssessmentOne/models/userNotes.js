@@ -13,6 +13,10 @@ const noteSchema = new mongoose.Schema({
 
 const Note = mongoose.model("Note", noteSchema);
 
+module.exports = {
+  Note,
+};
+
 // async function addNote(title, content, username) {
 //   let newNote = {
 //     title: title,
@@ -24,10 +28,6 @@ const Note = mongoose.model("Note", noteSchema);
 //     console.log("Error",err);
 //   });
 // }
-
-module.exports = {
-  Note,
-};
 
 /** 
 const noteData = model("studentNotes", noteSchema);

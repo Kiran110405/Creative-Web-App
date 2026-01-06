@@ -1,3 +1,4 @@
+console.log("index.js started");
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -272,6 +273,7 @@ app.delete("/user/notes/:id", async (req, res) => {
     res.status(500), json({ error: err });
   }
 });
+
 //Calender routes
 
 app.post("/api/events", async (req, res) => {
