@@ -1,4 +1,4 @@
-console.log("index.js started");
+// console.log("index.js started");
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -42,6 +42,10 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
 
 function checkLoggedIn(request, response, nextAction) {
   if (request.session) {
