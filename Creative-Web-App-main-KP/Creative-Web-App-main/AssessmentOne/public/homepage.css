@@ -39,6 +39,7 @@ main {
     margin-right: 100px;
 }
 
+/*Animation for the STAY FOCUSED*/
 @font-face {
     font-family: 'Inconsolata';
     src: url('https://ggayane.github.io/css-experiments/Inconsolata-VF.ttf');
@@ -106,9 +107,7 @@ main {
 
 .Section {
     position: relative;
-    /* NEW */
     overflow: hidden;
-    /* NEW */
     margin-top: 50px;
     text-align: center;
     margin-left: 100px;
@@ -177,24 +176,9 @@ main {
     animation: aiGlow 3s ease-in-out infinite;
 }
 
-/* Glow pulse */
-@keyframes aiGlow {
 
-    0%,
-    100% {
-        text-shadow:
-            0 0 6px rgba(99, 102, 241, 0.25),
-            0 0 12px rgba(99, 102, 241, 0.15);
-    }
 
-    50% {
-        text-shadow:
-            0 0 18px rgba(99, 102, 241, 0.45),
-            0 0 30px rgba(99, 102, 241, 0.35);
-    }
-}
 
-/* Scanning light — CLIPPED */
 #assistan-heading::after {
     content: "";
     position: absolute;
@@ -220,7 +204,6 @@ main {
     }
 }
 
-/*Map subheading*/
 
 #map-heading {
     position: relative;
@@ -232,7 +215,6 @@ main {
     text-transform: uppercase;
     margin-bottom: 28px;
 
-    /* Earth texture via gradient */
     background: linear-gradient(120deg,
             #1E3A8A 0%,
             #2563EB 20%,
@@ -248,42 +230,4 @@ main {
     color: transparent;
 
     animation: earthDrift 10s linear infinite;
-}
-
-/* Earth rotation illusion */
-@keyframes earthDrift {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    100% {
-        background-position: 100% 50%;
-    }
-}
-
-/* Atmospheric edge shading */
-#map-heading::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center,
-            rgba(255, 255, 255, 0.15) 0%,
-            rgba(0, 0, 0, 0.25) 70%);
-    mix-blend-mode: overlay;
-    pointer-events: none;
-}
-
-/* Subtle horizon glow under text */
-#map-heading::before {
-    content: "";
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    bottom: -6px;
-    height: 2px;
-    background: linear-gradient(to right,
-            transparent,
-            rgba(34, 197, 94, 0.6),
-            transparent);
-    opacity: 0.7;
 }

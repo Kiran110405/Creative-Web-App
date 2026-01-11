@@ -1,14 +1,10 @@
-/* ===============================
-   NOTES PAGE – FOCUSHUB THEME
-   =============================== */
-
 body {
     background: linear-gradient(135deg, #F4F6FB, #ECE9FF);
     font-family: "Inter", system-ui, sans-serif;
     margin: 0;
 }
 
-/* Page title */
+
 h1 {
     text-align: center;
     font-size: 3rem;
@@ -17,7 +13,7 @@ h1 {
     letter-spacing: 1px;
 }
 
-/* Add note button */
+
 .add-note {
     display: block;
     margin: 0 auto 40px;
@@ -38,9 +34,7 @@ h1 {
     box-shadow: 0 18px 40px rgba(106, 123, 255, 0.45);
 }
 
-/* ===============================
-   NOTES GRID (FULL WIDTH)
-   =============================== */
+
 
 main#notesContainer {
     width: 100%;
@@ -51,7 +45,7 @@ main#notesContainer {
     box-sizing: border-box;
 }
 
-/* Individual note card */
+
 .note {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 18px;
@@ -82,24 +76,20 @@ main#notesContainer {
     box-shadow: 0 25px 60px rgba(60, 60, 120, 0.25);
 }
 
-/* Note title */
+
 .note h3 {
     font-size: 1.4rem;
     margin-bottom: 10px;
     color: #3B3B7A;
 }
 
-/* Note content */
+
 .note p {
     font-size: 15px;
     line-height: 1.6;
     color: #555;
     flex-grow: 1;
 }
-
-/* ===============================
-   NOTE DIALOG (MODAL)
-   =============================== */
 
 dialog#noteDialog {
     border: none;
@@ -116,12 +106,11 @@ dialog::backdrop {
     backdrop-filter: blur(6px);
 }
 
-/* Dialog content */
+
 .dialog-content {
     padding: 30px;
 }
 
-/* Header */
 .dialog-header {
     display: flex;
     justify-content: space-between;
@@ -134,7 +123,7 @@ dialog::backdrop {
     color: #2E2A5E;
 }
 
-/* Close button */
+
 .close-button {
     background: none;
     border: none;
@@ -147,7 +136,6 @@ dialog::backdrop {
     color: #333;
 }
 
-/* Form groups */
 .form-group {
     margin-bottom: 20px;
 }
@@ -182,9 +170,6 @@ dialog::backdrop {
     box-shadow: 0 0 0 3px rgba(106, 123, 255, 0.2);
 }
 
-/* ===============================
-   DIALOG ACTION BUTTONS
-   =============================== */
 
 .dialogue-actions {
     display: flex;
@@ -222,11 +207,9 @@ dialog::backdrop {
     box-shadow: 0 12px 30px rgba(106, 123, 255, 0.5);
 }
 
-/* ===============================
-   RESPONSIVE
-   =============================== */
 
-@media (max-width: 768px) {
+
+@media (max-width: 800px) {
     main#notesContainer {
         padding: 30px 20px;
     }
@@ -236,7 +219,7 @@ dialog::backdrop {
     }
 }
 
-/* Notes grid layout */
+
 .notes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -244,10 +227,9 @@ dialog::backdrop {
     padding: 40px;
 }
 
-/* Individual note card */
+/*used AI to help randomise colours*/
 .notes-grid>div {
     background: #fff9a6;
-    /* default sticky note yellow */
     padding: 20px 18px;
     min-height: 220px;
     border-radius: 6px 6px 12px 6px;
@@ -260,7 +242,6 @@ dialog::backdrop {
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Hover effect */
 .notes-grid>div:hover {
     transform: scale(1.03) rotate(var(--rotation));
     box-shadow:
@@ -268,7 +249,7 @@ dialog::backdrop {
         inset 0 -10px 20px rgba(0, 0, 0, 0.06);
 }
 
-/* Sticky note fold (corner peel) */
+
 .notes-grid>div::after {
     content: "";
     position: absolute;
@@ -280,14 +261,14 @@ dialog::backdrop {
     clip-path: polygon(100% 0, 0 100%, 100% 100%);
 }
 
-/* Title */
+
 .notes-grid h3 {
     font-size: 20px;
     margin-bottom: 10px;
     color: #2a2a40;
 }
 
-/* Content */
+
 .notes-grid p {
     font-size: 15px;
     line-height: 1.5;
@@ -295,7 +276,6 @@ dialog::backdrop {
     white-space: pre-wrap;
 }
 
-/* 🎨 Alternate sticky note colors */
 .notes-grid>div:nth-child(4n + 1) {
     background: #fff9a6;
     /* yellow */
