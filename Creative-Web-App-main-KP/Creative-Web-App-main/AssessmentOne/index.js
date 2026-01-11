@@ -94,10 +94,6 @@ app.post("/register", (req, res) => {
   res.sendFile(path.join(__dirname, "/views", "registration_failed.html"));
 });
 
-// app.get("/profile", checkLoggedIn, (req, res) => {
-//   res.sendFile(path.join(__dirname, "/views", "profile.html"));
-// });
-
 app.get("/logout", checkLoggedIn, (req, res) => {
   res.sendFile(path.join(__dirname, "/views", "logout.html"));
 });
@@ -107,45 +103,9 @@ app.post("/logout", (request, response) => {
   response.redirect("/");
 });
 
-// app.post("/register", (req, res) => {
-//   if (users.addUser(req.body.username, req.body.password)) {
-//     return res.sendFile(path.join(__dirname, "/public", "login.html"));
-//   }
-//   res.sendFile(path.join(__dirname, "/public", "registration_failed.html"));
-// });
-
 app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "/views", "login.html"));
 });
-
-/** 
-app.post("/login", async (request, response) => {
-  if (await userModel.checkUser(request.body.username, request.body.password)) {
-    request.session.username = request.body.username;
-    response.sendFile(path.join(__dirname, "/views", "app.html"));
-  } else {
-    response.sendFile(path.join(__dirname, "/views", "notloggedin.html"));
-  }
-});
-*/
-
-// app.post("/login", async (req, res) => {
-//   const user = await users.checkUser(req.body.username, req.body.password);
-
-//   if (user) {
-//     res.json({ success: true, userId: user._id });
-//     // res.redirect("notes.html");
-//   } else {
-//     res.json({ success: false });
-//   }
-
-//   if (await userModel.checkUser(request.body.username, request.body.password)) {
-//     request.session.username = request.body.username;
-//     response.sendFile(path.join(__dirname, "/views", "homepage.html"));
-//   } else {
-//     response.sendFile(path.join(__dirname, "/views", "notloggedin.html"));
-//   }
-// });
 
 app.post("/login", async (req, res) => {
   const user = await users.checkUser(req.body.username, req.body.password);
@@ -184,7 +144,7 @@ app.post("/api/chat", async (req, res) => {
           {
             role: "system",
             content:
-              "You are a helpful study assistant. Not to engage in any inapropriate convsersations and can only do so if the user specifies that it is for educational purposes only and make sure before you engage in such conversations that you ask the user for an age of 18 or over",
+              "You are a helpful study assistant aimed at helping students through their studies. Not to engage in any inapropriate convsersations and can only do so if the user specifies that it is for educational purposes only and make sure before you engage in such conversations that you ask the user for an age of 18 or over",
           }, //how the AI should act
           { role: "user", content: userMessage },
         ],
@@ -234,20 +194,6 @@ app.post("/user/notes", async (req, res) => {
     res.status(500).json({ success: false, error: err });
   }
 });
-
-/** 
-app.post("/api/notes", async (req, res) => {
-  //creating a new note object
-  console.log("got note");
-  Note.addNote(
-    request.body.noteTitle,
-    request.body.noteContent,
-    request.session.username
-  );
-  response.sendFIle(path.join(__dirname, "/views", "notes.html"));
-});
-
-*/
 
 app.put("/user/notes/:id", async (req, res) => {
   //app.put updates the exisiting data that the user already has
@@ -307,22 +253,6 @@ app.delete("/api/events/:eventId", async (req, res) => {
     res.status(500).json({ success: false, error: error });
   }
 });
-
-// //logout
-
-// app.get("/logout", checkLoggedIn, (request, response) => {
-//   response.sendFile(path.join(__dirname, "/public", "logout.html"));
-// });
-
-// app.post("/logout", (request, response) => {
-//   request.session.destroy();
-//   response.redirect("/");
-// });
-
-//calender APIKey
-// app.get("/api/geoapify-key", (req, res) => {
-//   res.json({ apiKey: process.env.GEOAPIFY_API_KEY });
-// });
 
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
