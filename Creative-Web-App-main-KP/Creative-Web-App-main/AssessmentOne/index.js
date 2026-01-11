@@ -10,7 +10,7 @@ const cookieParser = require("cookie-parser");
 //required variables
 
 //for session
-const tenMinutes = 10 * 60 * 1000;
+const tenMinutes = 20 * 60 * 1000;
 const oneHour = 1 * 60 * 60 * 1000;
 
 const mongoDBPassword = process.env.mongoDBPassword;
@@ -27,7 +27,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json()); // Needed for the chatbot API
 
 const users = require("./models/users");
-//const userNotes = require("./models/users");
 const Notes = require("./models/userNotes");
 const Note = Notes.Note;
 const { request } = require("http");
@@ -62,7 +61,6 @@ function checkLoggedIn(request, response, nextAction) {
 }
 
 // Page Routes
-
 app.get("/homepage", checkLoggedIn, (request, response) => {
   response.sendFile(path.join(__dirname, "/views", "homepage.html"));
 });
@@ -132,7 +130,7 @@ app.post("/api/chat", async (req, res) => {
 
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      //endpoint
+      //endpoint of where responses come from
       method: "POST", //tells open API that user is sending data to it
       headers: {
         "Content-Type": "application/json", //informs that we are sending the data in json format
@@ -181,14 +179,13 @@ app.get("/user/notes/:userId", async (req, res) => {
 app.post("/user/notes", async (req, res) => {
   console.log("recieved note post");
   try {
-    // let note=await Notes.addNote(req.body.title, req.body.content, req.body.userId)
     const note = await Note.create({
       userId: req.body.userId,
       username: req.body.username,
       title: req.body.title,
       content: req.body.content,
     });
-
+    //gets these informations when note is created
     res.json({ success: true, note });
   } catch (err) {
     res.status(500).json({ success: false, error: err });
@@ -225,7 +222,6 @@ app.delete("/user/notes/:id", async (req, res) => {
 });
 
 //Calender routes
-
 app.post("/api/events", async (req, res) => {
   const { userId, title, detail, date } = req.body;
 
@@ -243,6 +239,7 @@ app.get("/api/events/:userId", async (req, res) => {
   const events = await Event.find({ userId: req.session.userId });
   res.json(events);
 });
+//finds the data in mongoDB
 
 //Delete route to delete the events
 app.delete("/api/events/:eventId", async (req, res) => {

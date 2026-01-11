@@ -42,13 +42,12 @@
                     });
                 },
 
-                // ✅ MOVED HERE (inside calendar config)
+                //when date is clicked again
                 eventClick: async function (info) {
                     if (!confirm(`You wish to DELETE event: "${info.event.title}"?`)) return;
 
                     const eventId = info.event.id;
 
-                    // Delete in backend
                     await fetch(`/api/events/${eventId}`, {
                         method: "DELETE"
                     });
@@ -109,15 +108,14 @@
     <main>
         <h2>CALENDER</h2>
         <div id="text">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas asperiores nam culpa et quisquam reiciendis
-                sit aliquam alias blanditiis omnis officia, vel quos magnam voluptas necessitatibus assumenda molestias
-                repellat consequatur!Lorem Lorem ipsum dolor, sit amet consectetur adipisicing elit. In doloremque
-                ducimus fuga, mollitia quia at ipsam aut eius voluptas autem, culpa quos rerum officiis? Magni
-                voluptatibus excepturi non recusandae iusto. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Animi est, asperiores expedita quas, corrupti a suscipit voluptate qui laboriosam explicabo, velit
-                reprehenderit dolor neque accusamus repudiandae odio praesentium in. Laboriosam. Lorem ipsum dolor sit
-                amet consectetur, adipisicing elit. Ea non voluptatem dolore porro perspiciatis! Non consectetur quae
-                quibusdam atque deserunt a explicabo sit assumenda. Facilis sequi autem ratione soluta vero!</p>
+            <p>Our built-in calendar feature is designed to help you stay organised and in control of your schedule. You
+                can easily add important deadlines, set specific times for revision, and plan study sessions that fit
+                around your day. Once added, everything is saved directly to your calendar so you can come back and
+                review your plans at any time. By visually laying out your tasks and goals, the calendar helps you
+                manage your time more effectively and avoid last-minute stress. You’ll receive a clear overview of
+                what’s coming up, what needs attention, and when to focus. Whether you’re tracking assignments, exams,
+                or personal goals, this feature keeps everything in one place and helps you stay consistent, motivated,
+                and on track with what matters most.</p>
         </div>
         <div id='calendar'></div>
     </main>

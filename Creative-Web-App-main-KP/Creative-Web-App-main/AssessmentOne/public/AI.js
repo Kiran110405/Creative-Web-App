@@ -11,22 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
   chatbotInput = document.getElementById("chatbot-input");
   chatbotMessages = document.getElementById("chatbot-messages");
 
-  // Only attach if chatbotIcon exists
-  if (chatbotIcon) {
-    chatbotIcon.addEventListener("click", function () {
-      chatbotContainer.classList.remove("hidden");
-      chatbotIcon.style.display = "none";
-    });
-  }
-
-  // Only attach if closeBtn exists
-  if (closeBtn) {
-    closeBtn.addEventListener("click", function () {
-      chatbotContainer.classList.add("hidden");
-      if (chatbotIcon) chatbotIcon.style.display = "flex";
-    });
-  }
-
   sendBtn.addEventListener("click", sendMessage);
   chatbotInput.addEventListener("keypress", function (e) {
     if (e.key === "Enter") sendMessage();

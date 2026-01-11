@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (data.success) {
       localStorage.setItem("loggedInUser", data.userId); // store the user ID
       localStorage.setItem("username", data.username);
-      window.location.href = "/homepage"; // redirect to notes page
+      window.location.href = "/homepage"; // redirect to homepage
     } else {
       alert("Login failed!");
     }

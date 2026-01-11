@@ -87,12 +87,11 @@
       <div class="Section">
         <h2 id="assistan-heading">AI Assistant</h2>
         <div id="note-text">
-          <p>The best way to study? TAKE NOTES.
-            Right here in this web app, students can write, organize, and save their notes all in one place. Whether
-            you're reviewing lessons, preparing for exams, or jotting down important ideas, your notes are always stored
-            securely and ready whenever you need them. Stay focused, stay organized, and study smarter by keeping all
-            your
-            notes in the app.</p>
+          <p>Need help understanding a topic or finding quick answers? Use the built-in AI assistant.
+            Right here in this web app, students can ask questions, get clear explanations, and receive helpful guidance
+            whenever they need it. Whether you’re revising a lesson, stuck on a concept, or looking for study tips, the
+            AI assistant is always available to support you. Get reliable information, learn at your own pace, and study
+            more confidently with instant help built directly into the app.</p>
           <br>
           <br>
           <a href="/AI" class="btn animation">
@@ -104,12 +103,11 @@
         <h2 id="map-heading">MAP</h2>
 
         <div id="note-text">
-          <p>The best way to study? TAKE NOTES.
-            Right here in this web app, students can write, organize, and save their notes all in one place. Whether
-            you're reviewing lessons, preparing for exams, or jotting down important ideas, your notes are always stored
-            securely and ready whenever you need them. Stay focused, stay organized, and study smarter by keeping all
-            your
-            notes in the app.</p>
+          <p>Need a good place to study? Use the built-in map feature.
+            Right here in this web app, students can find nearby libraries and cafés that are perfect for studying. You
+            can adjust the search radius to match how far you’re willing to travel, making it easy to discover study
+            spots that fit your routine. Find comfortable, convenient locations and stay productive wherever you choose
+            to study.</p>
           <br>
           <br>
           <a href="/Map" class="btn animation">
@@ -118,14 +116,17 @@
         </div>
       </div>
       <div class="Section">
-        <div id="noteAnimation" style="margin-top: 0px; text-align: center;"> </div>
+        <div class="wave-container">
+          <h1 class="wave-text">
+            <span>M</span><span>A</span><span>P</span>
+          </h1>
+        </div>
         <div id="note-text">
-          <p>The best way to study? TAKE NOTES.
-            Right here in this web app, students can write, organize, and save their notes all in one place. Whether
-            you're reviewing lessons, preparing for exams, or jotting down important ideas, your notes are always stored
-            securely and ready whenever you need them. Stay focused, stay organized, and study smarter by keeping all
-            your
-            notes in the app.</p>
+          <p>Want to stay on top of your work? Use the built-in calendar feature.
+            Right here in this web app, students can add deadlines, schedule revision times, and plan their study
+            sessions with ease. Everything is saved in one place so you can track what’s coming up and stay organised.
+            Manage your time better, stay consistent, and keep yourself on track with a clear, simple study calendar.
+          </p>
           <br>
           <br>
           <a href="/Calender" class="btn animation">
@@ -140,32 +141,6 @@
   </main>
 
   <footer></footer>
-
-  <!-- <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const heading = document.querySelector(".heading-two");
-      const words = heading.textContent.split(" ");
-      heading.textContent = "";
-
-      words.forEach(word => {
-        const span = document.createElement("span");
-        span.textContent = word + " ";
-        span.style.display = "inline-block";
-        heading.appendChild(span);
-      });
-
-      gsap.from(".heading-two span", {
-        y: -100,
-        opacity: 0,
-        rotationX: -90,
-        duration: 0.8,
-        ease: "bounce.out",
-        stagger: 0.2
-      });
-    });
-  </script> -->
-
-  <!-- Load p5 animation code -->
   <script src="sketch.js"></script>
 
 </body>

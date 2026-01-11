@@ -5,6 +5,17 @@
     gap: 250px;
 }
 
+#intro {
+    margin: 100px;
+    margin-top: 0px;
+    text-align: center;
+    font-size: 1.2rem;
+    border-color: black;
+    border: 8px;
+    border: solid;
+    padding: 30px;
+}
+
 #register-button {
     font-size: 2rem;
     font-weight: 600;
@@ -34,26 +45,6 @@
     border: 8px;
     border: solid;
 }
-
-/* .bubble-btn {
-    display: inline-block;
-    padding: 14px 36px;
-    font-family: 'Fredoka', sans-serif;
-    text-decoration: none;
-
-    background: linear-gradient(135deg, #6C63FF, #8F8CFF);
-    border-radius: 40px;
-    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-Hover pop
-.bubble-btn:hover {
-    box-shadow: 0 12px 30px rgba(108, 99, 255, 0.45);
-    transform: scale(1.08);
-}
-
-
 
 /* LEFT rotation */
 .rotate-left {
@@ -117,14 +108,6 @@ Hover pop
     transition: opacity 1s ease;
 }
 
-/* .intro-title {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 1.2s ease;
-    z-index: 1000;
-} */
 
 body.loaded .intro-title {
     position: relative;

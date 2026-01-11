@@ -1,0 +1,26 @@
+main {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 30px 40px;
+    background: linear-gradient(135deg, #F4F6FB, #EEF1FF);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(90, 90, 180, 0.15);
+    animation: fadeInUp 0.8s ease;
+}
+
+#logout {
+    display: flex;
+    justify-content: center;
+    padding: 120px;
+}
+
+#button {
+    font-size: 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: lightblue;
+    padding: 80px;
+    border-radius: 20px;
+    color: black;
+    box-shadow: 8px 8px black;
+}
